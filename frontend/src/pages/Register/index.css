@@ -105,3 +105,17 @@
   margin-bottom: 10px;
   text-align: center;
 }
+.register-text {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.register-link {
+  color: #2c7be5;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.register-link:hover {
+  text-decoration: underline;
+}

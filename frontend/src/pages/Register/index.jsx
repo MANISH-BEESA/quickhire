@@ -29,7 +29,7 @@ const Register = () => {
         setMessage(data.error || 'Registration failed')
       } else {
         setIsError(false)
-        setMessage('Registration successful 🎉')
+        setMessage('Registration successful')
 
         // Clear form fields
         setFirstname('')
@@ -102,6 +102,11 @@ const Register = () => {
             {message}
           </p>
         )}
+<p className="register-text">
+  Already have an account? <a href="/login" className="register-link">Login here</a>
+</p>
+
+
       </form>
     </div>
   )
