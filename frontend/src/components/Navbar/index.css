@@ -1,0 +1,102 @@
+/* Navbar - Black & White Theme */
+.navbar {
+    background-color: #000;
+    color: #fff;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    position: relative;
+  }
+  
+  .navbar-logo {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .navbar-toggle {
+    display: none;
+    font-size: 26px;
+    background: none;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  
+  .nav-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 15px;
+    cursor: pointer;
+    padding: 6px 12px;
+    border-radius: 4px;
+    transition: background 0.3s;
+  }
+  
+  .nav-btn:hover {
+    background-color: #ffffff22;
+  }
+  
+  .logout-btn {
+    color: #f87171;
+  }
+  
+  @media (max-width: 768px) {
+    .navbar-toggle {
+      display: block;
+    }
+  
+    .nav-links {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      margin-top: 10px;
+    }
+  
+    .nav-links.nav-open {
+      display: flex;
+    }
+  
+    .nav-btn {
+      background-color: #111;
+      width: 100%;
+      text-align: left;
+    }
+    .marquee-container {
+      overflow-x: auto;
+      padding-bottom: 10px;
+      -webkit-overflow-scrolling: touch; 
+    }
+    
+    .marquee-container::-webkit-scrollbar {
+      height: 6px;
+    }
+    
+    .marquee-container::-webkit-scrollbar-thumb {
+      background-color: #ccc;
+      border-radius: 4px;
+    }
+    
+    .marquee-track {
+      display: flex;
+      gap: 20px;
+      scroll-snap-type: x mandatory;
+      padding-left: 10px;
+    }
+    
+    .job-card {
+      scroll-snap-align: start;
+      flex-shrink: 0;
+      min-width: 280px;
+    }
+    
+  }
+  
