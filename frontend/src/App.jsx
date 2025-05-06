@@ -3,6 +3,8 @@ import Register from './pages/Register'
 import Login  from './pages/Login'
 import Home from './pages/Home'
 import PostAJob from './pages/JobPosting'
+import Jobs from './pages/Jobs'
+import JobDetails from './pages/JobDetails'
 import ProtectedRoute from './components/protectedRoute'
 
 function App() {
@@ -24,6 +26,22 @@ function App() {
         element={
           <ProtectedRoute>
             <PostAJob />
+          </ProtectedRoute>
+        }
+      />
+           <Route
+        path="/Jobs"
+        element={
+          <ProtectedRoute>
+            <Jobs />
+          </ProtectedRoute>
+        }
+      />
+               <Route
+        path="/jobs/:id"
+        element={
+          <ProtectedRoute>
+            <JobDetails />
           </ProtectedRoute>
         }
       />

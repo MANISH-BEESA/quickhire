@@ -6,6 +6,8 @@ const bcrypt = require('bcryptjs') // use only one bcrypt library
 const jwt = require('jsonwebtoken')
 const User = require('./models/userModel')
 const postJobRoute = require("./routes/postJob");
+const jobsRoute = require("./routes/jobs");
+const jobIdRoute=require("./routes/jobId")
 
 const app = express()
 
@@ -74,6 +76,9 @@ app.post('/login', async (req, res) => {
 
 app.use("/", postJobRoute);
 
+app.use("/", jobsRoute);
+
+app.use("/",jobIdRoute)
 // ✅ Start Server
 app.listen(5174, () => {
   console.log(`🚀 Server running`)
