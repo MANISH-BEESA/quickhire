@@ -1,8 +1,14 @@
 import './index.css'
 import Navbar from '../../components/Navbar'
 import jobData from '../../data/jobsData'
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+    const navigate = useNavigate();
+
+    const handleFindJobs = () => {
+      navigate("/jobs");
+    };
   return (
     <div className="home-wrapper">
       <Navbar />
@@ -11,7 +17,7 @@ const Home = () => {
         <div className="hero-content">
           <h1>Find Temporary Jobs Near You</h1>
           <p>Whether you're a waiter, helper, or delivery partner — get hired fast with QuickHire. No resumes, just real work.</p>
-          <button className="find-jobs-btn">Find Jobs</button>
+          <button className="find-jobs-btn" onClick={handleFindJobs}>Find Jobs</button>
         </div>
       </section>
 

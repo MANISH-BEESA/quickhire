@@ -5,6 +5,7 @@ const cors = require('cors')
 const bcrypt = require('bcryptjs') // use only one bcrypt library
 const jwt = require('jsonwebtoken')
 const User = require('./models/userModel')
+const postJobRoute = require("./routes/postJob");
 
 const app = express()
 
@@ -69,6 +70,9 @@ app.post('/login', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' })
   }
 })
+
+
+app.use("/", postJobRoute);
 
 // ✅ Start Server
 app.listen(5174, () => {
