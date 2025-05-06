@@ -1,0 +1,123 @@
+.post-job-container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 2rem;
+    background: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+  }
+  
+  .form-heading {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+  }
+  
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+  
+  .form-field {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-field label {
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+  
+  .form-field input,
+  .form-field select {
+    padding: 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+  }
+  
+  .form-description {
+    grid-column: span 2;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-description textarea {
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+  }
+  
+  .form-submit {
+    grid-column: span 2;
+    text-align: center;
+    margin-top: 1rem;
+  }
+  
+  .form-submit button {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .form-submit button:hover {
+    background-color: #333;
+  }
+  
+  @media (max-width: 768px) {
+    .form-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .form-description,
+    .form-submit {
+      grid-column: span 1;
+    }
+  }
+  .currency-input {
+    display: flex;
+    align-items: center;
+  }
+  
+  .currency-symbol {
+    background-color: #eee;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid #ccc;
+    border-right: none;
+    border-radius: 6px 0 0 6px;
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  .currency-input input {
+    flex: 1;
+    padding: 0.6rem;
+    border: 1px solid #ccc;
+    border-left: none;
+    border-radius: 0 6px 6px 0;
+    font-size: 1rem;
+  }
+  .response-message {
+    grid-column: span 2;
+    text-align: center;
+    font-weight: 500;
+    margin-top: 1rem;
+    font-size: 1rem;
+    transition: opacity 0.3s ease;
+  }
+  
+  .response-message.success {
+    color: green;
+  }
+  
+  .response-message.error {
+    color: red;
+  }
+  
