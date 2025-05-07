@@ -8,6 +8,9 @@ const User = require('./models/userModel')
 const postJobRoute = require("./routes/postJob");
 const jobsRoute = require("./routes/jobs");
 const jobIdRoute=require("./routes/jobId")
+const applyRoute = require("./routes/apply");
+const profileRoute = require("./routes/profile");
+const cookieParser = require("cookie-parser");
 
 const app = express()
 
@@ -16,7 +19,7 @@ app.use(cors({
   credentials: true
 }))
 app.use(express.json())
-
+app.use(cookieParser());
 // ✅ MongoDB connection
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('✅ MongoDB connected'))
@@ -76,9 +79,12 @@ app.post('/login', async (req, res) => {
 
 app.use("/", postJobRoute);
 
-app.use("/", jobsRoute);
+app.use("/jobs", jobsRoute);
 
-app.use("/",jobIdRoute)
+app.use("/jobs",jobIdRoute)
+
+app.use("/apply", applyRoute);
+app.use("/profile", profileRoute);
 // ✅ Start Server
 app.listen(5174, () => {
   console.log(`🚀 Server running`)

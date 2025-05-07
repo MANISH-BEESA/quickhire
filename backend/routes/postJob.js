@@ -1,30 +1,39 @@
 const express = require("express");
-const router = express.Router();
+const jwt = require("jsonwebtoken");
 const multer = require("multer");
 const { v2: cloudinary } = require("cloudinary");
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const Job = require("../models/Job");
 
-// Cloudinary config
+const router = express.Router();
+
+// 🔐 Cloudinary Config
 cloudinary.config({
   cloud_name: "dm19vyh7k",
   api_key: "323963592668113",
-  api_secret: "u1c6RjD5N1UzEE2Ci5qIukI1fCQ",
+  api_secret: "u1c6RjD5N1UzEE2Ci5qIukI1fC",
 });
 
-// Multer + Cloudinary storage config
+// 📦 File Upload Setup
 const storage = new CloudinaryStorage({
   cloudinary,
   params: {
-    folder: "quickhire-logos",
-    allowed_formats: ["jpg", "jpeg", "png"],
+    folder: "quickhire",
+    allowed_formats: ["jpg", "png", "jpeg"],
   },
 });
+
 const upload = multer({ storage });
 
-// POST route to handle job creation
+// 📝 POST /post-job
 router.post("/postJob", upload.single("companyLogo"), async (req, res) => {
   try {
+    const token = req.cookies.jwt_token;
+    if (!token) return res.status(401).json({ error: "Unauthorized" });
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const postedByUsername = decoded.username;
+
     const {
       jobTitle,
       postedBy,
@@ -43,12 +52,9 @@ router.post("/postJob", upload.single("companyLogo"), async (req, res) => {
       numberOfOpenings,
     } = req.body;
 
-    const companyLogoUrl = req.file ? req.file.path : null;
-
-    const newJob = new Job({
+    const job = new Job({
       jobTitle,
       postedBy,
-      companyLogo: companyLogoUrl,
       jobDescription,
       jobLocation,
       salaryPackage,
@@ -62,13 +68,16 @@ router.post("/postJob", upload.single("companyLogo"), async (req, res) => {
       workHours,
       jobExpiryDate,
       numberOfOpenings,
+      postedByUsername,
+      companyLogo: req.file?.path || "",
+      datePosted: new Date(),
     });
 
-    await newJob.save();
-    res.status(201).json({ message: "Job posted successfully!" });
-  } catch (error) {
-    console.error("Error posting job:", error);
-    res.status(500).json({ error: "Failed to post job" });
+    await job.save();
+    res.status(200).json({ message: "Job posted successfully", job });
+  } catch (err) {
+    console.error("❌ Error posting job:", err);
+    res.status(500).json({ error: "Something went wrong" });
   }
 });
 

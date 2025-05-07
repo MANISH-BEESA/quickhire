@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const jobSchema = new mongoose.Schema({
   jobTitle: String,
   postedBy: String,
-  companyLogo: String, // Store filename or URL
+  postedByUsername: String, // ✅ Add this to store JWT-based username
+  companyLogo: String, // URL from Cloudinary
   jobDescription: String,
   jobLocation: String,
   salaryPackage: String,
