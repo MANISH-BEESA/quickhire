@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Job = require("../models/Job");
-router.get("/jobs", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const {
       category,

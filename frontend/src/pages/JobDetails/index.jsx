@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import "./index.css";
@@ -55,8 +56,11 @@ const JobDetails = () => {
             <div><strong>📞 Contact:</strong> {job.contactNumber}</div>
           </div>
         </div>
-
-        <button className="jobdetails-apply-button">Apply Now</button>
+        {job?._id && (
+  <Link to={`/apply/${job._id}`}>
+    <button className="jobdetails-apply-button">Apply Now</button>
+  </Link>
+)}
       </div>
     </>
   );

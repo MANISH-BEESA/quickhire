@@ -36,6 +36,7 @@ const PostAJob = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("posted")
     const data = new FormData();
     Object.entries(formData).forEach(([key, value]) => {
       data.append(key, value);
@@ -45,6 +46,7 @@ const PostAJob = () => {
       const response = await fetch("http://localhost:5174/postJob", {
         method: "POST",
         body: data,
+        credentials: "include",
       });
       const result = await response.json();
 

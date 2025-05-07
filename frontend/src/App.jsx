@@ -5,6 +5,8 @@ import Home from './pages/Home'
 import PostAJob from './pages/JobPosting'
 import Jobs from './pages/Jobs'
 import JobDetails from './pages/JobDetails'
+import ApplyForm from './pages/ApplyForm'
+import Profile from './pages/Profile'
 import ProtectedRoute from './components/protectedRoute'
 
 function App() {
@@ -42,6 +44,22 @@ function App() {
         element={
           <ProtectedRoute>
             <JobDetails />
+          </ProtectedRoute>
+        }
+      />
+                     <Route
+        path="/apply/:id"
+        element={
+          <ProtectedRoute>
+            <ApplyForm />
+          </ProtectedRoute>
+        }
+      />
+                         <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <Profile />
           </ProtectedRoute>
         }
       />

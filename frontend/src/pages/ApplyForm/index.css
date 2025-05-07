@@ -1,0 +1,55 @@
+.apply-container {
+  padding: 30px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.form-card {
+  display: flex;
+  gap: 30px;
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+}
+
+.left-column {
+  flex: 1;
+  border-right: 2px solid #eee;
+  padding-right: 30px;
+}
+
+.right-column {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+.apply-form label {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+}
+
+.apply-form input,
+.apply-form textarea {
+  margin-top: 6px;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.apply-btn {
+  margin-top: 20px;
+  padding: 12px;
+  background-color: #3b82f6;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.apply-btn:hover {
+  background-color: #2563eb;
+}

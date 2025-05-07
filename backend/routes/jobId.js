@@ -3,7 +3,7 @@ const router = express.Router();
 const Job = require("../models/Job");
 
 // GET /jobId/:id – Fetch job by ID
-router.get("/jobs/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const job = await Job.findById(id);
