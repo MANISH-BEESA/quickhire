@@ -1,59 +1,102 @@
-.profile-container {
-    max-width: 1100px;
-    margin: 30px auto;
-    padding: 20px;
-    font-family: 'Segoe UI', sans-serif;
-  }
-  
-  .profile-title {
-    font-size: 28px;
-    margin-bottom: 24px;
-    color: #1f2937;
-  }
-  
-  .section {
-    margin-top: 32px;
-  }
-  
-  .section h3 {
-    margin-bottom: 12px;
-    color: #374151;
-  }
-  
-  .cards-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-  }
-  
-  .card {
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.05);
-    padding: 16px;
-    width: 100%;
-    max-width: 300px;
-    transition: transform 0.2s;
-  }
-  
-  .card:hover {
-    transform: translateY(-4px);
-  }
-  
-  .card h4 {
-    font-size: 18px;
-    color: #111827;
-  }
-  
-  .card p {
-    margin: 8px 0;
-    color: #4b5563;
-  }
-  
-  .label {
-    display: inline-block;
-    margin-top: 8px;
-    font-size: 14px;
-    color: #2563eb;
-  }
-  
+
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background: #f9f9f9;
+  color: #333;
+}
+
+/* Profile Page Container */
+.profile-page {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Header Section */
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 20px;
+}
+
+.profile-pic {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #3b82f6;
+}
+
+.profile-text h2 {
+  font-size: 26px;
+  margin-bottom: 5px;
+}
+
+.username {
+  font-size: 16px;
+  color: #888;
+}
+
+/* Details Section */
+.profile-details {
+  margin-top: 30px;
+}
+
+.profile-details h3 {
+  font-size: 20px;
+  margin: 20px 0 10px;
+  color: #333;
+}
+
+/* Job Cards */
+.card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.job-card {
+  background: #f1f5f9;
+  padding: 15px 20px;
+  border-left: 4px solid #3b82f6;
+  border-radius: 8px;
+}
+
+.job-card h4 {
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.job-card p {
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.job-card span {
+  font-size: 13px;
+  color: #555;
+}
+
+.video-link {
+  display: inline-block;
+  margin-top: 5px;
+  font-size: 14px;
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.video-link:hover {
+  text-decoration: underline;
+}

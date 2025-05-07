@@ -2,6 +2,7 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const Job = require("../models/Job");
 const Application = require("../models/Application");
+const userModel=require("../models/userModel")
 
 const router = express.Router();
 
@@ -22,8 +23,10 @@ router.get("/", async (req, res) => {
     // ✅ Fetch applications made by the user
     const applications = await Application.find({ username }).populate("jobId");
 
+    const user=await userModel.findOne({username})
+
     res.status(200).json({
-      username,
+      user,
       jobsPosted,
       applications,
     });
