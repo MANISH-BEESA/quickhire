@@ -7,6 +7,7 @@ import Jobs from './pages/Jobs'
 import JobDetails from './pages/JobDetails'
 import ApplyForm from './pages/ApplyForm'
 import Profile from './pages/Profile'
+import JobApplicants from './pages/jobApplicants'
 import ProtectedRoute from './components/protectedRoute'
 
 function App() {
@@ -60,6 +61,14 @@ function App() {
         element={
           <ProtectedRoute>
             <Profile />
+          </ProtectedRoute>
+        }
+      />
+         <Route
+        path="/jobs/:jobId/applications"
+        element={
+          <ProtectedRoute>
+            <JobApplicants />
           </ProtectedRoute>
         }
       />

@@ -1,0 +1,77 @@
+/* JobApplicants.css */
+
+/* General page container */
+.applicants-page {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #222;
+  }
+  
+  .applicants-page h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+  }
+  
+  /* Applicant card */
+  .applicant-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-left: 6px solid #4f46e5;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .applicant-card:hover {
+    transform: scale(1.01);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  }
+  
+  .applicant-card p {
+    margin: 6px 0;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  
+  .applicant-card strong {
+    color: #000;
+  }
+  
+  .applicant-card a {
+    display: inline-block;
+    margin-top: 10px;
+    text-decoration: none;
+    color: #4f46e5;
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+  
+  .applicant-card a:hover {
+    color: #1e40af;
+    text-decoration: underline;
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .applicants-page {
+      padding: 0 12px;
+    }
+  
+    .applicant-card {
+      padding: 16px;
+    }
+  
+    .applicants-page h2 {
+      font-size: 22px;
+    }
+  
+    .applicant-card p {
+      font-size: 14px;
+    }
+  }
+  

@@ -11,6 +11,7 @@ const jobIdRoute=require("./routes/jobId")
 const applyRoute = require("./routes/apply");
 const profileRoute = require("./routes/profile");
 const cookieParser = require("cookie-parser");
+const Application=require("./models/Application")
 
 const app = express()
 
@@ -85,6 +86,17 @@ app.use("/jobs",jobIdRoute)
 
 app.use("/apply", applyRoute);
 app.use("/profile", profileRoute);
+// GET /jobs/:id/applications
+app.get("/jobs/:id/applications", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const applications = await Application.find({ jobId: id }).populate("jobId");
+    res.json(applications);
+  } catch (err) {
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
 // ✅ Start Server
 app.listen(5174, () => {
   console.log(`🚀 Server running`)

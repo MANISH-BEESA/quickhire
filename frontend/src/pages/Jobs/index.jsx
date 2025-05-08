@@ -100,16 +100,6 @@ const Jobs = () => {
       <div className="jobs-main">
         <div className="jobs-filters">
           <h3>Filters</h3>
-
-          <label>Category:</label>
-          <select name="category" onChange={handleRadioChange}>
-            <option value="">All</option>
-            <option value="Waiter">Waiter</option>
-            <option value="Helper">Helper</option>
-            <option value="Delivery">Delivery</option>
-            <option value="Kitchen">Kitchen</option>
-          </select>
-
           <label>Shift Timing:</label>
           <select name="shiftTiming" onChange={handleRadioChange}>
             <option value="">All</option>
