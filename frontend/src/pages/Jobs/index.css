@@ -264,3 +264,25 @@
   .jobPostedDate{
     font-weight: bold;
   }
+  .job-tags {
+  display: flex;
+  gap: 8px;
+  margin: 0.5rem 0;
+  flex-wrap: wrap;
+}
+
+.tag {
+  background-color: #e0e7ff;
+  color: #1e3a8a;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.desc-preview {
+  color: #333;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  margin-top: 0.3rem;
+}
