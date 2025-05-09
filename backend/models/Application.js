@@ -5,7 +5,8 @@ const applicationSchema = new mongoose.Schema({
   email: String,
   phone: String,
   message: String,
-  video: String, // Cloudinary URL if uploaded
+  video: String,
+  gender:String , 
   jobId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Job", // references Job model

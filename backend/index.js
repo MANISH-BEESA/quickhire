@@ -28,7 +28,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 // ✅ Register Route
 app.post('/register', async (req, res) => {
-  const { firstname, lastname, username, password } = req.body
+  const { firstname, lastname, username, password,gender } = req.body
 
   try {
     const existingUser = await User.findOne({ username })
@@ -41,7 +41,8 @@ app.post('/register', async (req, res) => {
       firstname,
       lastname,
       username,
-      password: hashedPassword
+      password: hashedPassword,
+      gender
     })
 
     await newUser.save()

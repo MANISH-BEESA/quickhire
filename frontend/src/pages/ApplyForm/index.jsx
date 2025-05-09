@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./index.css";
 
 const ApplyForm = () => {
   const { id } = useParams();
   const [job, setJob] = useState(null);
+  const [message,setMessage]=useState("");
+  const [dataFetched,setDataFetched]=useState(false)
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     phone: "",
     message: "",
+    gender: "",
     video: null,
   });
-
+const navigate=useNavigate()
   useEffect(() => {
     const fetchJob = async () => {
       const res = await fetch(`http://localhost:5174/jobs/${id}`);
@@ -37,7 +40,6 @@ const ApplyForm = () => {
       form.append(key, formData[key]);
     }
     form.append("jobId", id);
-
     const res = await fetch("http://localhost:5174/apply", {
       method: "POST",
       body: form,
@@ -47,10 +49,22 @@ const ApplyForm = () => {
     try {
       const data = JSON.parse(text);
       if (res.ok) {
-        alert(data.message || "Success!");
+        setMessage("You applied Successfully")
+        setDataFetched(true)
+        setFormData({
+          fullName: "",
+          email: "",
+          phone: "",
+          message: "",
+          gender: "",
+          video: null,
+        })
+     setTimeout(()=>{
+      navigate("/")
+     },1500)
       } else {
-        alert(data.error || "Failed");
-        console.error("💥 Server error:", data.details);
+      setMessage("you application is not submitted")
+      setDataFetched(false)
       }
     } catch (err) {
       console.error("❌ Failed to parse response:", text);
@@ -83,6 +97,9 @@ const ApplyForm = () => {
             <label>Phone
               <input type="tel" name="phone" onChange={handleChange} />
             </label>
+            <label>Gender
+              <input type="text" name="gender" onChange={handleChange} />
+            </label>
             <label>Message
               <textarea name="message" onChange={handleChange}></textarea>
             </label>
@@ -91,6 +108,9 @@ const ApplyForm = () => {
             </label>
             <button type="submit" className="apply-btn">Submit Application</button>
           </form>
+          {message &&  <p className={!dataFetched ? 'error-message' : 'success-message'}>
+            {message}
+          </p>}
         </div>
       </div>
     </div>

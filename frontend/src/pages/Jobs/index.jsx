@@ -67,8 +67,6 @@ const Jobs = () => {
   };
 
   return (
-    
-
     <div className="jobs-page">
       <Navbar />
       <div className="jobs-header">
@@ -100,6 +98,7 @@ const Jobs = () => {
       <div className="jobs-main">
         <div className="jobs-filters">
           <h3>Filters</h3>
+
           <label>Shift Timing:</label>
           <select name="shiftTiming" onChange={handleRadioChange}>
             <option value="">All</option>
@@ -166,36 +165,56 @@ const Jobs = () => {
             <p>No jobs found.</p>
           ) : (
             jobs.map((job) => (
-              <Link to={`/jobs/${job._id}`} className="link">
-              <div key={job._id} className="job-card">
-                <div className="job-header">
-                  <h3 className="job-title">{job.jobTitle}</h3>
-                  <span className={`urgency-tag ${getUrgencyClass(job.urgencyLevel)}`}>
-                    {job.urgencyLevel}
-                  </span>
-                </div>
-                <p><strong>Company:</strong> {job.postedBy}</p>
-                <p className="job-meta">
-                  <span>📍 {job.jobLocation}</span>
-                  <span>⏱ {job.employmentType}</span>
-                  <span>🕒 {job.shiftTiming} shift</span>
-                </p>
-                <p className="job-meta">
-                Posted Date : <span className="jobPostedDate">{new Date(job.datePosted).toLocaleDateString()}</span>
-                </p>
+              <Link to={`/jobs/${job._id}`} className="link" key={job._id}>
+                <div className="job-card">
+                  <div className="job-header">
+                    <h3 className="job-title">{job.jobTitle}</h3>
+                    <span
+                      className={`urgency-tag ${getUrgencyClass(
+                        job.urgencyLevel
+                      )}`}
+                    >
+                      {job.urgencyLevel}
+                    </span>
+                  </div>
 
-                <div className="description-row">
-                  <strong>Description</strong>
+                  <p>
+                    <strong>Company:</strong> {job.postedBy}
+                  </p>
+
+                  <div className="job-tags">
+                    {job.category && <span className="tag">{job.category}</span>}
+                   {job.employmentType &&<span className="tag">{job.employmentType}</span>}
+                  {job.shiftTiming && <span className="tag">{job.shiftTiming} Shift</span>}
+                  </div>
+
+                  <p className="job-meta">
+                    📍 {job.jobLocation}
+                    {job.salary && <>&nbsp; | 💰 {job.salary}</>}
+                  </p>
+
+                  <p className="job-meta">
+                    Posted on:{" "}
+                    <span className="jobPostedDate">
+                      {new Date(job.datePosted).toLocaleDateString()}
+                    </span>
+                  </p>
+
+                  <div className="description-row">
+                    <strong>Description</strong>
+                  </div>
+                  <p className="desc-preview">
+                    {job.jobDescription?.length > 100
+                      ? `${job.jobDescription.substring(0, 100)}...`
+                      : job.jobDescription}
+                  </p>
                 </div>
-                <p>{job.jobDescription}</p>
-              </div>
               </Link>
             ))
           )}
         </div>
       </div>
     </div>
-  
   );
 };
 

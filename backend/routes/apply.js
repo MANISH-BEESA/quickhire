@@ -36,7 +36,7 @@ router.post("/", upload.single("video"), async (req, res) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const username = decoded.username;
 
-    const { fullName, email, phone, message, jobId } = req.body;
+    const { fullName, email, phone, message, jobId,gender } = req.body;
 
     // ✅ Add this debug block:
 
@@ -48,6 +48,7 @@ router.post("/", upload.single("video"), async (req, res) => {
       video: req.file?.path || "",
       jobId,
       username,
+      gender,
       appliedAt: new Date(),
     });
 

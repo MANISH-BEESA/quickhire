@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate,Link } from 'react-router-dom'
 import Cookies from 'js-cookie'
 import './index.css'
 
@@ -17,7 +17,9 @@ const Navbar = () => {
 
   return (
     <header className="navbar">
+      <Link to="/" className='linkElh'>
       <h1 className="navbar-logo">QuickHire</h1>
+      </Link>
       <button className="navbar-toggle" onClick={toggleMenu}>☰</button>
 
       <div className="nav-links">

@@ -8,12 +8,13 @@ const Register = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [message, setMessage] = useState('')
+  const [gender,setGender]=useState('')
   const [isError, setIsError] = useState(false)
 
   const navigate = useNavigate()
 
   const submitForm = async () => {
-    const userDetails = { firstname, lastname, username, password }
+    const userDetails = { firstname, lastname, username, password , gender }
 
     try {
       const response = await fetch('http://localhost:5174/register', {
@@ -74,6 +75,15 @@ const Register = () => {
           placeholder="Enter your Lastname"
           value={lastname}
           onChange={(e) => setLastname(e.target.value)}
+        />
+
+           <label htmlFor="gender">Gender</label>
+        <input
+          type="text"
+          id="gender"
+          placeholder="Enter your Lastname"
+          value={gender}
+          onChange={(e) => setGender(e.target.value.toLowerCase())}
         />
 
         <label htmlFor="username">Email</label>

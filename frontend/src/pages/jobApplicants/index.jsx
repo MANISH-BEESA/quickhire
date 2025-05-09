@@ -24,6 +24,7 @@ const JobApplicants = () => {
             <p><strong>Full Name:</strong> {app.fullName}</p>
             <p><strong>Email:</strong> {app.email}</p>
             <p><strong>Phone:</strong> {app.phone}</p>
+            {app.gender && <p><strong>Gender:{app.gender}</strong></p>}
             {app.video && (
               <a href={app.video} target="_blank" rel="noreferrer">🎥 Watch Video</a>
             )}
