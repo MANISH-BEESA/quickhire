@@ -15,82 +15,76 @@ const Profile = () => {
       });
       const data = await res.json();
       setDataFetched(true);
-      console.log(data)
       if (!data.error) {
         setUser(data);
         setJobsPosted(data.jobsPosted || []);
         setApplications(data.applications || []);
       }
     };
-
     fetchData();
   }, []);
 
   return (
     dataFetched && (
       <div className="profile-wrapper">
-        <div className="profile-section-header">
-          <div className="profile-header-text">
-            <h2>
-              Full Name: {user?.user?.lastname?.toUpperCase()}{" "}
-              {user?.user?.firstname.toUpperCase()}
-            </h2>
-            <p className="profile-email">Email: {user?.user?.username}</p>
+        <div className="profile-card">
+          <div className="profile-img-section">
+            <img
+              src="https://i.pravatar.cc/150?img=12"
+              alt="Profile"
+              className="profile-pic"
+            />
+            <button className="edit-pic-btn">✏️ Edit</button>
+          </div>
+          <div className="profile-info">
+            <h2>{user?.user?.firstname} {user?.user?.lastname}</h2>
+            <p className="username">@{user?.user?.username}</p>
+            <p className="email">📧 {user?.user?.email || 'Not provided'}</p>
+            <p className="phone">📞 {user?.user?.phone || 'N/A'}</p>
+            <p className="role">🎓 Role: {user?.user?.role || "User"}</p>
+            <p className="bio">🚀 Bio: Passionate learner and aspiring tech leader!</p>
+            <div className="profile-actions">
+              <button className="btn edit">Edit Profile</button>
+              <button className="btn logout">Logout</button>
+            </div>
           </div>
         </div>
 
-        <div className="profile-section">
+        <div className="section">
           <h3>📌 Jobs You Posted</h3>
-          <div className="profile-posted-list">
+          <div className="card-grid">
             {jobsPosted.length ? (
               jobsPosted.map((job) => (
-                <Link
-                  to={`/jobs/${job._id}/applications`}
-                  className="profile-job-link"
-                  key={job._id}
-                >
-                  <div className="profile-job-card">
-                    <h4>{job.jobTitle}</h4>
-                    <p>
-                      <strong>Location:</strong> {job.jobLocation} •{" "}
-                      <strong>Shift Timing:</strong> {job.shiftTiming}
-                    </p>
-                    <span>Salary: {job.salaryPackage}</span>
-                  </div>
+                <Link to={`/jobs/${job._id}/applications`} key={job._id} className="job-card">
+                  <h4>{job.jobTitle}</h4>
+                  <p><strong>Location:</strong> {job.jobLocation}</p>
+                  <p><strong>Shift:</strong> {job.shiftTiming}</p>
+                  <span>💰 {job.salaryPackage}</span>
                 </Link>
               ))
             ) : (
-              <p>No jobs posted yet.</p>
+              <p className="empty-msg">No jobs posted yet.</p>
             )}
           </div>
+        </div>
 
+        <div className="section">
           <h3>📄 Jobs You Applied For</h3>
-          <div className="profile-applied-list">
+          <div className="card-grid">
             {applications.length ? (
               applications.map((app) => (
-                <div className="profile-application-card" key={app._id}>
+                <div className="job-card" key={app._id}>
                   <h4>{app.jobId?.jobTitle || "Deleted Job"}</h4>
-                  <p>
-                    <strong>Location:</strong> {app.jobId?.jobLocation} •{" "}
-                    <strong>Shift Timing:</strong> {app.jobId?.shiftTiming}
-                  </p>
-                  <span>
-                    📅 Applied: {new Date(app.appliedAt).toLocaleDateString()}
-                  </span>
+                  <p><strong>Location:</strong> {app.jobId?.jobLocation}</p>
+                  <p><strong>Shift:</strong> {app.jobId?.shiftTiming}</p>
+                  <span>📅 Applied: {new Date(app.appliedAt).toLocaleDateString()}</span>
                   {app.video && (
-                    <a
-                      href={app.video}
-                      className="profile-video-link"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      🎥 Watch Video
-                    </a>
+                    <a href={app.video} target="_blank" rel="noreferrer" className="video-link">🎥 Watch Video</a>
                   )}
                 </div>
               ))
             ) : (
-              <p>No applications submitted yet.</p>
+              <p className="empty-msg">No applications yet.</p>
             )}
           </div>
         </div>
