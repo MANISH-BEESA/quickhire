@@ -9,6 +9,7 @@ import ApplyForm from './pages/ApplyForm'
 import Profile from './pages/Profile'
 import JobApplicants from './pages/jobApplicants'
 import ProtectedRoute from './components/protectedRoute'
+import AboutPage from './pages/About'
 
 function App() {
   return (
@@ -69,6 +70,14 @@ function App() {
         element={
           <ProtectedRoute>
             <JobApplicants />
+          </ProtectedRoute>
+        }
+      />
+               <Route
+        path="/about"
+        element={
+          <ProtectedRoute>
+            <AboutPage />
           </ProtectedRoute>
         }
       />
