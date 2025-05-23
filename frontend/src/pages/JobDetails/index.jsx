@@ -50,7 +50,7 @@ const JobDetails = () => {
           <div className="jobdetails-info-grid">
             <div><strong>🚨 Urgency:</strong> {job.urgencyLevel}</div>
             <div><strong>⏰ Work Hours:</strong> {job.workHours}</div>
-            <div><strong>📆 Expires On:</strong> {job.jobExpiryDate}</div>
+            <div><strong>📆  Apply By:</strong> {job.jobExpiryDate}</div>
             <div><strong>👥 Openings:</strong> {job.numberOfOpenings}</div>
             <div><strong>📧 Business Email : </strong> {job.email}</div>
             <div><strong>📞 Contact:</strong> {job.contactNumber}</div>

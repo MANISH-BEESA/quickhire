@@ -10,6 +10,7 @@ import Profile from './pages/Profile'
 import JobApplicants from './pages/jobApplicants'
 import ProtectedRoute from './components/protectedRoute'
 import AboutPage from './pages/About'
+import EditJob from './pages/EditJob'
 
 function App() {
   return (
@@ -81,6 +82,7 @@ function App() {
           </ProtectedRoute>
         }
       />
+      <Route path="/jobs/:id/edit" element={<ProtectedRoute><EditJob /></ProtectedRoute>}  />
       </Routes>
     </BrowserRouter>
   )

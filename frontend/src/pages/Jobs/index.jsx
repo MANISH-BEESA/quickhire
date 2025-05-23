@@ -1,3 +1,4 @@
+// src/pages/Jobs/index.jsx
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../../components/Navbar";
@@ -12,29 +13,14 @@ const Jobs = () => {
     employmentType: "",
     sort: "",
   });
-
   const [searchInput, setSearchInput] = useState({
     title: "",
     location: "",
   });
 
-  const getUrgencyClass = (level) => {
-    switch (level?.toLowerCase()) {
-      case "urgent":
-        return "urgency-red";
-      case "flexible":
-        return "urgency-yellow";
-      case "scheduled":
-        return "urgency-green";
-      default:
-        return "";
-    }
-  };
-
   const fetchJobs = async (customFilters = {}) => {
     const query = new URLSearchParams();
     const combined = { ...filters, ...customFilters };
-
     Object.entries(combined).forEach(([key, value]) => {
       if (value && value !== "All" && value !== "Default") {
         query.append(key, value);
@@ -69,7 +55,7 @@ const Jobs = () => {
   return (
     <div className="jobs-page">
       <Navbar />
-      <div className="jobs-header">
+      <header className="jobs-header">
         <h1>
           Find your <span className="highlight">new job</span> today
         </h1>
@@ -93,10 +79,10 @@ const Jobs = () => {
           />
           <button onClick={handleSearch}>Search</button>
         </div>
-      </div>
+      </header>
 
       <div className="jobs-main">
-        <div className="jobs-filters">
+        <aside className="jobs-filters">
           <h3>Filters</h3>
 
           <label>Shift Timing:</label>
@@ -158,34 +144,36 @@ const Jobs = () => {
               </label>
             ))}
           </div>
-        </div>
+        </aside>
 
-        <div className="jobs-results">
+        <section className="jobs-results">
           {jobs.length === 0 ? (
-            <p>No jobs found.</p>
+            <p className="no-results">No jobs found.</p>
           ) : (
             jobs.map((job) => (
-              <Link to={`/jobs/${job._id}`} className="link" key={job._id}>
+              <Link to={`/jobs/${job._id}`} className="job-link" key={job._id}>
                 <div className="job-card">
-                  <div className="job-header">
-                    <h3 className="job-title">{job.jobTitle}</h3>
-                    <span
-                      className={`urgency-tag ${getUrgencyClass(
-                        job.urgencyLevel
-                      )}`}
-                    >
-                      {job.urgencyLevel}
-                    </span>
+                  <div className="card-header">
+                    <img
+                      src={job.companyLogo || "/placeholder-logo.png"}
+                      alt={`${job.postedBy} logo`}
+                      className="company-logo"
+                    />
+                    <div className="title-section">
+                      <h3 className="job-title">{job.jobTitle}</h3>
+                      <br />
+                      <p className="company-name"><strong>Company: </strong>{job.postedBy}</p>
+                    </div>
                   </div>
-
-                  <p>
-                    <strong>Company:</strong> {job.postedBy}
-                  </p>
 
                   <div className="job-tags">
                     {job.category && <span className="tag">{job.category}</span>}
-                   {job.employmentType &&<span className="tag">{job.employmentType}</span>}
-                  {job.shiftTiming && <span className="tag">{job.shiftTiming} Shift</span>}
+                    {job.employmentType && (
+                      <span className="tag">{job.employmentType}</span>
+                    )}
+                    {job.shiftTiming && (
+                      <span className="tag">{job.shiftTiming} Shift</span>
+                    )}
                   </div>
 
                   <p className="job-meta">
@@ -193,11 +181,9 @@ const Jobs = () => {
                     {job.salary && <>&nbsp; | 💰 {job.salary}</>}
                   </p>
 
-                  <p className="job-meta">
+                  <p className="job-meta posted">
                     Posted on:{" "}
-                    <span className="jobPostedDate">
-                      {new Date(job.datePosted).toLocaleDateString()}
-                    </span>
+                    {new Date(job.datePosted).toLocaleDateString()}
                   </p>
 
                   <div className="description-row">
@@ -212,7 +198,7 @@ const Jobs = () => {
               </Link>
             ))
           )}
-        </div>
+        </section>
       </div>
     </div>
   );
