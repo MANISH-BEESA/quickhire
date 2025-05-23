@@ -138,3 +138,224 @@
   color: #6b7280;
   font-style: italic;
 }
+.profile-wrapper {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  font-family: sans-serif;
+}
+
+/* Header */
+.profile-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+.name {
+  font-size: 1.8rem;
+  margin: 0.5rem 0 0.25rem;
+}
+.handle {
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+}
+.tagline {
+  color: #4b5563;
+  margin-bottom: 1rem;
+}
+.btn.edit-profile {
+  background: #f3f4f6;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn.edit-profile:hover {
+  background: #e5e7eb;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  border-bottom: 1px solid #e5e7eb;
+  margin-bottom: 1rem;
+}
+.tab {
+  flex: 1;
+  text-align: center;
+  padding: 0.75rem 0;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  font-size: 1rem;
+  color: #6b7280;
+  transition: color 0.2s;
+}
+.tab.active {
+  color: #111827;
+  border-bottom: 2px solid #111827;
+}
+.tab:not(.active):hover {
+  color: #374151;
+}
+
+/* Content */
+.tab-content .empty-msg {
+  text-align: center;
+  color: #6b7280;
+  margin-top: 2rem;
+}
+
+/* List Items */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #ffffff;
+  transition: box-shadow 0.2s;
+}
+.list-item:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.status {
+  font-size: 0.85rem;
+  color: #10b981;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.sub {
+  color: #6b7280;
+}
+.salary {
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+.btn.view {
+  margin-top: 0.5rem;
+  background: #f3f4f6;
+  border: none;
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn.view:hover {
+  background: #e5e7eb;
+}
+.company-logo {
+  width: 120px;
+  height: auto;
+  border-radius: 6px;
+  object-fit: cover;
+}
+/* ensure your existing .list-item is display:flex; */
+.list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* … your other styles … */
+}
+
+/* NEW: actions container */
+.list-item .actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-left: 1rem;
+}
+
+/* NEW: edit button */
+.btn.edit {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.btn.edit:hover {
+  background: #2563eb;
+}
+
+/* NEW: delete button */
+.btn.delete {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.btn.delete:hover {
+  background: #dc2626;
+}
+/* frontend/src/pages/Profile/index.css */
+.profile-wrapper {
+  max-width: 800px;
+  margin: 2rem auto;
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+.profile-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.avatar, .avatar-edit .avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+.avatar-edit input {
+  display: block;
+  margin: 0.5rem auto;
+}
+.name {
+  font-size: 1.8rem;
+  margin-bottom: 0.3rem;
+}
+.handle {
+  color: #555;
+  margin-bottom: 1rem;
+}
+.btn {
+  padding: 0.5rem 1rem;
+  margin: 0.3rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.edit-profile { background: #3b82f6; color: #fff; }
+.save { background: #10b981; color: #fff; }
+.cancel { background: #ef4444; color: #fff; }
+.text-input {
+  width: 100%;
+  padding: 0.6rem;
+  margin: 0.5rem 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+/* you can add styles for your .tabs and .list etc. below */
