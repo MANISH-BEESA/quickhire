@@ -158,7 +158,7 @@ const Profile = () => {
               <h1 className="name">
                 {user.firstname} {user.lastname}
               </h1>
-              <p className="handle">@{user.username}</p>
+              <p className="handle">Email:{user.username}</p>
               <button
                 className="btn edit-profile"
                 onClick={() => setIsEditing(true)}
