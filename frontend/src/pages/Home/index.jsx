@@ -5,6 +5,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { CheckCircle, ArrowRight } from 'lucide-react';
 import Footer from '../../components/Footer';
 import Benefits from '../../components/Benefits';
+import image1 from "../../assets/image1.png"
 
 const steps = [
   {
@@ -71,6 +72,14 @@ const Home = () => {
         <button className="btn primary" onClick={() => navigate('/jobs')}>Find Jobs</button>
         <button className="btn secondary" onClick={() => navigate('/post-job')}>Post a Job</button>
       </div>
+    </div>
+
+    {/* New right‐side image */}
+    <div className="hero-right">
+      <img
+        src={image1}
+        alt="Worker on site"
+      />
     </div>
   </div>
 </section>

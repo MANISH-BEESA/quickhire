@@ -9,11 +9,12 @@ const ApplyForm = () => {
   const [dataFetched, setDataFetched] = useState(false);
   const navigate = useNavigate();
 
-  // form values
+  // form values, now including aadhar
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     phone: "",
+    aadhar: "",
     message: "",
     gender: "",
     video: null,
@@ -37,10 +38,10 @@ const ApplyForm = () => {
       ...fd,
       [name]: files ? files[0] : value,
     }));
-    setErrors((errs) => ({ ...errs, [name]: "" })); // clear error on user edit
+    setErrors((errs) => ({ ...errs, [name]: "" })); // clear error on change
   };
 
-  // Validate required fields + phone format + video presence
+  // Validate required fields + formats
   const validate = () => {
     const errs = {};
 
@@ -60,6 +61,12 @@ const ApplyForm = () => {
       errs.phone = "Phone must be 10 digits.";
     }
 
+    if (!formData.aadhar.trim()) {
+      errs.aadhar = "Aadhar number is required.";
+    } else if (!/^\d{12}$/.test(formData.aadhar)) {
+      errs.aadhar = "Aadhar must be exactly 12 digits.";
+    }
+
     if (!formData.video) {
       errs.video = "Please upload a short intro video.";
     }
@@ -73,14 +80,14 @@ const ApplyForm = () => {
     const errs = validate();
     if (Object.keys(errs).length > 0) {
       setErrors(errs);
-      return; // stop here until the user fixes errors
+      return;
     }
 
-    // all good → proceed to send
+    // build form data
     const form = new FormData();
-    for (let key in formData) {
-      form.append(key, formData[key]);
-    }
+    Object.entries(formData).forEach(([key, val]) => {
+      form.append(key, val);
+    });
     form.append("jobId", id);
 
     const res = await fetch("http://localhost:5174/apply", {
@@ -95,10 +102,12 @@ const ApplyForm = () => {
       if (res.ok) {
         setMessage("You applied successfully!");
         setDataFetched(true);
+        // reset form
         setFormData({
           fullName: "",
           email: "",
           phone: "",
+          aadhar: "",
           message: "",
           gender: "",
           video: null,
@@ -172,6 +181,20 @@ const ApplyForm = () => {
             </label>
 
             <label>
+              Aadhar Number
+              <input
+                type="text"
+                name="aadhar"
+                value={formData.aadhar}
+                onChange={handleChange}
+                maxLength={12}
+              />
+              {errors.aadhar && (
+                <span className="error-message">{errors.aadhar}</span>
+              )}
+            </label>
+
+            <label>
               Gender
               <input
                 type="text"
@@ -197,7 +220,6 @@ const ApplyForm = () => {
                 name="video"
                 accept="video/*"
                 onChange={handleChange}
-                required
               />
               {errors.video && (
                 <span className="error-message">{errors.video}</span>

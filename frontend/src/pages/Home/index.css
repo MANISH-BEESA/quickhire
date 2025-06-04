@@ -708,15 +708,114 @@
   background-color: #eff6ff;
 }
 
-.hero-right {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-}
 
 .hero-image {
   max-width: 500px;
   width: 100%;
   border-radius: 18px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.07);
+}
+.hero-section {
+  padding: 4rem 0;
+  background: #f5f5f5;
+}
+
+.hero-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 2rem;
+}
+
+.hero-left {
+  flex: 1 1 50%;
+
+}
+
+.hero-right {
+  position: relative;
+  flex: 1 1 40%;
+  max-width: 360px;     /* or whatever width you prefer */
+  width: 100%;
+  height: 260px;        /* fix the height to match your design */
+}
+
+.hero-right::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom right, #bfdbfe, #fef9c3);
+  transform: rotate(4deg);
+  border-radius: 1.5rem;
+  z-index: 0;
+}
+
+.hero-right img {
+  position: relative;
+  width: 140%;
+  height: 150%;
+  object-fit: cover;
+  border-radius: 1.25rem;  /* slightly smaller than the card’s radius */
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+  z-index: 1;
+}
+.hero-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;       /* allow wrapping on narrow viewports */
+  gap: 2rem;
+}
+
+/* Make text and image each take roughly half the space */
+.hero-left,
+.hero-right {
+  flex: 1 1 45%;
+}
+
+/* IMAGE CARD STYLING */
+.hero-right {
+  position: relative;
+  width: 100%;
+  max-width: 360px;      /* caps its width */
+  aspect-ratio: 3 / 2;   /* keeps a consistent proportion */
+  margin: 0 auto;        /* center when narrower than container */
+}
+
+/* Rotated gradient card behind the image */
+.hero-right::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom right, #bfdbfe, #fef9c3);
+  transform: rotate(3deg);
+  border-radius: 1.5rem;
+  z-index: 0;
+}
+
+/* The actual image on top */
+.hero-right img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 1.25rem;   /* slightly inside the gradient card */
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+  z-index: 1;
+}
+
+/* STACK LAYOUT ON SMALL SCREENS */
+@media (max-width: 768px) {
+  .hero-left,
+  .hero-right {
+    flex: 1 1 100%;        /* full width each */
+  }
+
+  .hero-right {
+    max-width: 80%;        /* a bit narrower than full width */
+    aspect-ratio: 16 / 9;  /* wider ratio on mobile, if you prefer */
+    margin-top: 2rem;      /* space above when stacked */
+  }
 }

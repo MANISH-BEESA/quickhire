@@ -45,7 +45,6 @@ router.put("/:id",  async (req, res) => {
     if (!job) return res.status(404).json({ error: "Job not found" });
 
 
-    // update fields from req.body
     Object.assign(job, req.body);
     await job.save();
 
@@ -56,7 +55,7 @@ router.put("/:id",  async (req, res) => {
   }
 });
 
-// DELETE a job
+
 router.delete("/:id",  async (req, res) => {
   try {
     const job = await Job.findById(req.params.id);
