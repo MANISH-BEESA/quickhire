@@ -1,105 +1,123 @@
-require('dotenv').config()
-const express = require('express')
-const mongoose = require('mongoose')
-const cors = require('cors')
-const bcrypt = require('bcryptjs') // use only one bcrypt library
-const jwt = require('jsonwebtoken')
-const User = require('./models/userModel')
-const postJobRoute = require("./routes/postJob");
-const jobsRoute = require("./routes/jobs");
-const jobIdRoute=require("./routes/jobId")
-const applyRoute = require("./routes/apply");
-const profileRoute = require("./routes/profile");
-const cookieParser = require("cookie-parser");
-const Application=require("./models/Application")
+require('dotenv').config();
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const cookieParser = require('cookie-parser');
 
-const app = express()
+const User = require('./models/userModel');
+const postJobRoute = require('./routes/postJob');
+const jobsRoute = require('./routes/jobs');
+const jobIdRoute = require('./routes/jobId');
+const applyRoute = require('./routes/apply');
+const profileRoute = require('./routes/profile');
+const Application = require('./models/Application');
 
-app.use(cors({
-  origin: process.env.CLIENT_URL,
-  credentials: true
-}));
+const app = express();
 
-app.use(express.json())
+// 🔐 CORS (Render backend ⟷ Vercel frontend)
+app.use(
+  cors({
+    origin: process.env.CLIENT_URL,   // e.g. https://quickhire-xyz.vercel.app
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  })
+);
+
+app.use(express.json());
 app.use(cookieParser());
+
 // ✅ MongoDB connection
-mongoose.connect(process.env.MONGO_URI)
+mongoose
+  .connect(process.env.MONGO_URI)
   .then(() => console.log('✅ MongoDB connected'))
-  .catch(err => console.error('❌ Mongo error:', err))
+  .catch((err) => console.error('❌ Mongo error:', err));
 
 // ✅ Register Route
 app.post('/register', async (req, res) => {
-  const { firstname, lastname, username, password,gender } = req.body
+  const { firstname, lastname, username, password, gender } = req.body;
 
   try {
-    const existingUser = await User.findOne({ username })
+    const existingUser = await User.findOne({ username });
     if (existingUser) {
-      return res.status(409).json({ error: 'Username already exists' })
+      return res.status(409).json({ error: 'Username already exists' });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10)
+    const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({
       firstname,
       lastname,
       username,
       password: hashedPassword,
-      gender
-    })
+      gender,
+    });
 
-    await newUser.save()
-    res.status(200).json({ message: 'User registered successfully' })
+    await newUser.save();
+    return res.status(200).json({ message: 'User registered successfully' });
   } catch (err) {
-    console.error('Registration error:', err)
-    res.status(500).json({ error: 'Something went wrong' })
-  }
-})
-
-// ✅ Login Route
-app.post('/login', async (req, res) => {
-  const { username, password } = req.body
-
-  try {
-    const existingUser = await User.findOne({ username })
-    if (!existingUser) {
-      return res.status(401).json({ error: "User doesn't exist" })
-    }
-
-    const isMatch = await bcrypt.compare(password, existingUser.password)
-    if (!isMatch) {
-      return res.status(401).json({ error: "Invalid Password" })
-    }
-
-    const token = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: '1d' })
-
-    return res.status(200).json({ message: 'Login successful', jwt_token: token })
-
-  } catch (err) {
-    console.error(err)
-    res.status(500).json({ error: 'Internal Server Error' })
-  }
-})
-
-
-app.use("/", postJobRoute);
-
-app.use("/jobs", jobsRoute);
-
-app.use("/jobs",jobIdRoute)
-
-app.use("/apply", applyRoute);
-app.use("/profile", profileRoute);
-// GET /jobs/:id/applications
-app.get("/jobs/:id/applications", async (req, res) => {
-  const { id } = req.params;
-  try {
-    const applications = await Application.find({ jobId: id }).populate("jobId");
-    res.json(applications);
-  } catch (err) {
-    res.status(500).json({ error: "Server error" });
+    console.error('Registration error:', err);
+    return res.status(500).json({ error: 'Something went wrong' });
   }
 });
 
-// ✅ Start Server
-app.listen(5174, () => {
-  console.log(`🚀 Server running`)
-})
+// ✅ Login Route – NOW SETS COOKIE
+app.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    const existingUser = await User.findOne({ username });
+    if (!existingUser) {
+      return res.status(401).json({ error: "User doesn't exist" });
+    }
+
+    const isMatch = await bcrypt.compare(password, existingUser.password);
+    if (!isMatch) {
+      return res.status(401).json({ error: 'Invalid Password' });
+    }
+
+    const token = jwt.sign(
+      { username },
+      process.env.JWT_SECRET,
+      { expiresIn: '1d' }
+    );
+
+    // 🔐 Set httpOnly cookie for cross-site (Vercel → Render)
+    res.cookie('jwt_token', token, {
+      httpOnly: true,
+      secure: true,       // because Render uses https
+      sameSite: 'none',   // important for cross-origin cookies
+      maxAge: 24 * 60 * 60 * 1000,
+    });
+
+    return res.status(200).json({ message: 'Login successful' });
+  } catch (err) {
+    console.error('Login error:', err);
+    return res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Routes
+app.use('/', postJobRoute);
+app.use('/jobs', jobsRoute);
+app.use('/jobs', jobIdRoute);
+app.use('/apply', applyRoute);
+app.use('/profile', profileRoute);
+
+// GET /jobs/:id/applications
+app.get('/jobs/:id/applications', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const applications = await Application.find({ jobId: id }).populate('jobId');
+    return res.json(applications);
+  } catch (err) {
+    return res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// ✅ Start Server – use PORT from env for Render
+const PORT = process.env.PORT || 5174;
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+});
