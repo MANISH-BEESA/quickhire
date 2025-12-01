@@ -43,7 +43,7 @@ const PostAJob = () => {
     });
 
     try {
-      const response = await fetch("http://localhost:5174/postJob", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/postJob`, {
         method: "POST",
         body: data,
         credentials: "include",

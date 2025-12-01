@@ -30,7 +30,7 @@ const Login = () => {
         body: JSON.stringify(userDetails),
       }
 
-      const apiUrl = 'http://localhost:5174/login'
+      const apiUrl = `${import.meta.env.VITE_API_URL}/login`
       const response = await fetch(apiUrl, options)
       const data = await response.json()
 

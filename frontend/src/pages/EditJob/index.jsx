@@ -31,7 +31,7 @@ const EditJob = () => {
   useEffect(() => {
     const fetchJob = async () => {
       try {
-        const res = await fetch(`http://localhost:5174/jobs/${id}`, {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/jobs/${id}`, {
           credentials: "include",
         });
         const job = await res.json();
@@ -78,7 +78,7 @@ const handleSubmit = async (e) => {
     const { companyLogo, ...payload } = formData;
 
     try {
-      const res = await fetch(`http://localhost:5174/jobs/${id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/jobs/${id}`, {
        method: "PUT",
         credentials: "include",
         headers: {

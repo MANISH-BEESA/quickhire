@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import "./index.css";
 
-const API_URL = "http://localhost:5174";
+const API_URL = `${import.meta.env.VITE_API_URL}`;
 const DEFAULT_AVATAR="https://i.pinimg.com/736x/2f/15/f2/2f15f2e8c688b3120d3d26467b06330c.jpg"
 
 const Profile = () => {

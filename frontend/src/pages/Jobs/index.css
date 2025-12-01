@@ -1,9 +1,18 @@
-/* src/pages/Jobs/index.css */
+/* Global safety: optional but very helpful */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Page wrapper */
 .jobs-page {
   background: #f4f6f8;
   min-height: 100vh;
+  overflow-x: hidden;           /* prevent horizontal scroll */
 }
 
+/* Header */
 .jobs-header {
   text-align: center;
   padding: 2rem 1rem;
@@ -13,7 +22,7 @@
 
 .jobs-header h1 {
   margin-bottom: 0.5rem;
-  font-size: 2.5rem;
+  font-size: 2.2rem;
 }
 
 .jobs-header .highlight {
@@ -25,16 +34,19 @@
   margin-bottom: 1.5rem;
 }
 
+/* Search bar */
 .search-bar {
   display: inline-flex;
+  flex-wrap: wrap;              /* wrap on small screens */
   gap: 0.5rem;
+  justify-content: center;
 }
 
 .search-bar input {
   padding: 0.6rem 1rem;
   border: 1px solid #ccc;
   border-radius: 4px;
-  width: 200px;
+  min-width: 220px;
 }
 
 .search-bar button {
@@ -46,12 +58,17 @@
   cursor: pointer;
 }
 
+/* Main layout */
 .jobs-main {
   display: flex;
-  gap: 1.5rem;
-  padding: 2rem 1rem;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.5rem 0rem;
+  max-width: 1200px;            /* center content and prevent overflow */
+  margin: 0 auto;
 }
 
+/* Filters sidebar */
 .jobs-filters {
   flex: 0 0 240px;
   background: #fff;
@@ -85,17 +102,23 @@
   margin-right: 0.5rem;
 }
 
+/* Jobs grid */
 .jobs-results {
   flex: 1;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); /* responsive */
+  gap: 1.5rem;                      /* 👉 space between cards */
+  align-items: stretch;
 }
 
+/* Make each grid item a proper block */
 .job-link {
+  display: block;
+  height: 100%;
   text-decoration: none;
 }
 
+/* Card */
 .job-card {
   background: #fff;
   border-radius: 8px;
@@ -103,13 +126,16 @@
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
-  transition: transform 0.2s ease;
+  height: 100%;                     /* fill grid cell */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .job-card:hover {
   transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
+/* Card header */
 .card-header {
   display: flex;
   align-items: center;
@@ -126,7 +152,7 @@
 
 .title-section .job-title {
   margin: 0;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
 .company-name {
@@ -135,6 +161,7 @@
   font-size: 0.9rem;
 }
 
+/* Tags */
 .job-tags {
   margin-bottom: 0.8rem;
 }
@@ -150,6 +177,7 @@
   font-size: 0.8rem;
 }
 
+/* Meta info */
 .job-meta {
   font-size: 0.9rem;
   color: #555;
@@ -160,6 +188,7 @@
   font-style: italic;
 }
 
+/* Description */
 .description-row {
   margin-top: 1rem;
   margin-bottom: 0.3rem;
@@ -171,41 +200,30 @@
   line-height: 1.4;
 }
 
+/* No results text */
 .no-results {
   grid-column: 1 / -1;
   text-align: center;
   color: #777;
 }
-/* ensure grid rows size to the tallest card, and items stretch to fill */
-.jobs-results {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.5rem;
-  align-items: stretch;     /* stretch each grid item vertically */
-}
 
-/* make each card a column‐flexbox that fills its grid cell */
-.job-card {
-  display: flex;
-  flex-direction: column;
-  height: 100%;             /* fill the full height of its grid row */
-}
-/* Make the main container a flex row that stretches its children vertically */
-.jobs-main {
-  display: flex;
-  align-items: stretch;   /* ← this is key */
-  gap: 1.5rem;
-  padding: 2rem 1rem;
-}
+/* 📱 Mobile / small screens */
+@media (max-width: 768px) {
+  .jobs-main {
+    flex-direction: column;      /* stack filters on top of jobs */
+    padding: 1rem;
+  }
 
-/* Ensure your filter column also opts into that stretching behavior */
-.jobs-filters {
-  flex: 0 0 240px;
-  align-self: stretch;    /* ← ensures it fills the flex‐container’s height */
-  background: #fff;
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-}
+  .jobs-filters {
+    flex: 1 1 auto;
+    width: 100%;
+  }
 
-/* You can remove the aside { height: auto } override; it’s not needed */
+  .jobs-results {
+    grid-template-columns: 1fr;  /* one card per row */
+  }
+
+  .jobs-header h1 {
+    font-size: 1.8rem;
+  }
+}

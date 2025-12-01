@@ -8,7 +8,7 @@ const JobApplicants = () => {
 
   useEffect(() => {
     const fetchApplicants = async () => {
-      const res = await fetch(`http://localhost:5174/jobs/${jobId}/applications`);
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/jobs/${jobId}/applications`);
       const data = await res.json();
       setApplicants(data);
     };

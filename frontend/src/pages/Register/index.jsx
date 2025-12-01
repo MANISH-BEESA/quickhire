@@ -17,7 +17,7 @@ const Register = () => {
     const userDetails = { firstname, lastname, username, password , gender }
 
     try {
-      const response = await fetch('http://localhost:5174/register', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(userDetails),

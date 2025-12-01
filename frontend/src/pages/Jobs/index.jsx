@@ -28,7 +28,7 @@ const Jobs = () => {
     });
 
     try {
-      const res = await fetch(`http://localhost:5174/jobs?${query.toString()}`);
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/jobs?${query.toString()}`);
       const data = await res.json();
       setJobs(data);
     } catch (err) {

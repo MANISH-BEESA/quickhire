@@ -25,7 +25,7 @@ const ApplyForm = () => {
 
   useEffect(() => {
     const fetchJob = async () => {
-      const res = await fetch(`http://localhost:5174/jobs/${id}`);
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/jobs/${id}`);
       const data = await res.json();
       setJob(data);
     };
@@ -90,7 +90,7 @@ const ApplyForm = () => {
     });
     form.append("jobId", id);
 
-    const res = await fetch("http://localhost:5174/apply", {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/apply`, {
       method: "POST",
       body: form,
       credentials: "include",
