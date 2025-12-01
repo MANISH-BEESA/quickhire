@@ -83,11 +83,10 @@ app.post('/login', async (req, res) => {
       { expiresIn: '1d' }
     );
 
-    // 🔐 Set httpOnly cookie for cross-site (Vercel → Render)
     res.cookie('jwt_token', token, {
       httpOnly: true,
-      secure: true,       // because Render uses https
-      sameSite: 'none',   // important for cross-origin cookies
+      secure: true,      // https on Render
+      sameSite: 'none',  // Vercel <-> Render cross-site
       maxAge: 24 * 60 * 60 * 1000,
     });
 
@@ -97,6 +96,7 @@ app.post('/login', async (req, res) => {
     return res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
 
 // Routes
 app.use('/', postJobRoute);

@@ -1,14 +1,42 @@
-import { Navigate } from 'react-router-dom'
-import Cookies from 'js-cookie'
+import { Navigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 const ProtectedRoute = ({ children }) => {
-  const token = Cookies.get('jwt_token')
+  const [authChecked, setAuthChecked] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  if (!token) {
-    return <Navigate to="/login" replace />
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/profile`, {
+          method: 'GET',
+          credentials: 'include',   // 🔥 sends cookie to backend
+        });
+
+        if (res.ok) {
+          setIsAuthenticated(true);
+        } else {
+          setIsAuthenticated(false);
+        }
+      } catch {
+        setIsAuthenticated(false);
+      } finally {
+        setAuthChecked(true);
+      }
+    };
+
+    checkAuth();
+  }, []);
+
+  if (!authChecked) {
+    return null; // or a loading spinner
   }
 
-  return children
-}
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
 
-export default ProtectedRoute
+  return children;
+};
+
+export default ProtectedRoute;

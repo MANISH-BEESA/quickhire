@@ -1,60 +1,53 @@
-import { useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
-import Cookies from 'js-cookie'
-import './index.css'
+import { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import './index.css';
 
 const Login = () => {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [message, setMessage] = useState('')
-  const [isError, setIsError] = useState(false)
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
+  const [isError, setIsError] = useState(false);
 
-  const navigate = useNavigate()
-
-  const setCookies = (jwtToken) => {
-    Cookies.set('jwt_token', jwtToken, {
-      expires: 30,
-      path: '/',
-    })
-  }
+  const navigate = useNavigate();
 
   const submitForm = async () => {
-    const userDetails = { username, password }
+    const userDetails = { username, password };
 
     try {
-      const options = {
+      const apiUrl = `${import.meta.env.VITE_API_URL}/login`;
+
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include',          // 👈 VERY IMPORTANT
         body: JSON.stringify(userDetails),
-      }
+      });
 
-      const apiUrl = `${import.meta.env.VITE_API_URL}/login`
-      const response = await fetch(apiUrl, options)
-      const data = await response.json()
+      const data = await response.json();
 
       if (!response.ok) {
-        setIsError(true)
-        setMessage(data.error || 'Login Failed')
+        setIsError(true);
+        setMessage(data.error || 'Login failed');
       } else {
-        setIsError(false)
-        setMessage('Login successful')
-        setUsername('')
-        setPassword('')
-        setCookies(data.jwt_token)
-        navigate('/', { replace: true })
+        setIsError(false);
+        setMessage('Login successful');
+        setUsername('');
+        setPassword('');
+        // ✅ No manual cookie setting – backend already set httpOnly cookie
+        navigate('/', { replace: true });
       }
     } catch (error) {
-      setIsError(true)
-      setMessage('Network error. Please try again.')
+      setIsError(true);
+      setMessage('Network error. Please try again.');
     }
-  }
+  };
 
   const handleLogin = (event) => {
-    event.preventDefault()
-    submitForm()
-  }
+    event.preventDefault();
+    submitForm();
+  };
 
   return (
     <div className="login-container">
@@ -88,11 +81,14 @@ const Login = () => {
         )}
 
         <p className="register-text">
-          Don't have an account? <Link to="/register" className="register-link">Register here</Link>
+          Don't have an account?{' '}
+          <Link to="/register" className="register-link">
+            Register here
+          </Link>
         </p>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
