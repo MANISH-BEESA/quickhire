@@ -11,7 +11,7 @@ const JobDetails = () => {
   useEffect(() => {
     const fetchJob = async () => {
       try {
-        const res = await fetch(`http://localhost:5174/jobs/${id}`);
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/jobs/${id}`);
         const data = await res.json();
         setJob(data);
       } catch (err) {
